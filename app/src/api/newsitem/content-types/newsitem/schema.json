@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "newsitems",
+  "info": {
+    "singularName": "newsitem",
+    "pluralName": "newsitems",
+    "displayName": "newsitems",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "preview": {
+      "type": "text"
+    },
+    "link": {
+      "type": "string"
+    },
+    "creator": {
+      "type": "string"
+    },
+    "sponsored": {
+      "type": "boolean"
+    },
+    "feedsources": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::feedsource.feedsource"
+    },
+    "feedsource": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::feedsource.feedsource",
+      "inversedBy": "newsitems"
+    },
+    "created": {
+      "type": "datetime"
+    }
+  }
+}

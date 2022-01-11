@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "feedsources",
+  "info": {
+    "singularName": "feedsource",
+    "pluralName": "feedsources",
+    "displayName": "feedsources",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "source": {
+      "type": "string"
+    },
+    "lang": {
+      "type": "string",
+      "maxLength": 2,
+      "required": true,
+      "minLength": 2,
+      "default": "en"
+    },
+    "newsitems": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::newsitem.newsitem",
+      "mappedBy": "feedsource"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    }
+  }
+}
