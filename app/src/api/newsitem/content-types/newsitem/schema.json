@@ -27,19 +27,14 @@
     "sponsored": {
       "type": "boolean"
     },
-    "feedsources": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::feedsource.feedsource"
+    "published": {
+      "type": "datetime"
     },
     "feedsource": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::feedsource.feedsource",
       "inversedBy": "newsitems"
-    },
-    "created": {
-      "type": "datetime"
     }
   }
 }

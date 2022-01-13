@@ -13,13 +13,15 @@
   "pluginOptions": {},
   "attributes": {
     "link": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "enabled": {
       "type": "boolean"
     },
     "source": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "lang": {
       "type": "string",
@@ -27,6 +29,12 @@
       "required": true,
       "minLength": 2,
       "default": "en"
+    },
+    "language": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::language.language",
+      "inversedBy": "feedsources"
     },
     "newsitems": {
       "type": "relation",
@@ -36,8 +44,9 @@
     },
     "categories": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::category.category"
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "feedsources"
     }
   }
 }

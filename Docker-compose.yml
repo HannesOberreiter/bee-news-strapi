@@ -12,11 +12,12 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
-      DATABASE_PORT_PROD: ${DATABASE_PORT}
-      DATABASE_USERNAME_PROD: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD_PROD: ${DATABASE_PASSWORD}
-      DATABASE_HOST_PROD: ${DATABASE_HOST}
-      DATABASE_NAME_PROD: ${DATABASE_NAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_CHARSET: ${DATABASE_CHARSET}
       HOST: ${HOST}
       PORT: ${PORT}
     volumes:
@@ -30,7 +31,7 @@ services:
     container_name: bee-news-mysql
     image: mysql:5.7
     restart: always
-    command: --default-authentication-plugin=mysql_native_password
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: strapi
       MYSQL_USER: strapi
@@ -38,3 +39,5 @@ services:
       MYSQL_ROOT_PASSWORD: strapi
     volumes:
       - ./db:/var/lib/mysql
+    ports:
+      - "33061:3306"

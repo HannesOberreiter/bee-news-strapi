@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "languages",
   "info": {
-    "singularName": "category",
-    "pluralName": "categories",
-    "displayName": "categories",
+    "singularName": "language",
+    "pluralName": "languages",
+    "displayName": "Languages",
     "description": ""
   },
   "options": {
@@ -17,19 +17,19 @@
   },
   "attributes": {
     "name": {
-      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
+      "type": "string",
       "unique": true
     },
     "feedsources": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "oneToMany",
       "target": "api::feedsource.feedsource",
-      "inversedBy": "categories"
+      "mappedBy": "language"
     }
   }
 }

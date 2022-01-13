@@ -1,5 +1,11 @@
 // https://dev.to/strapi/how-to-build-a-news-aggregator-app-using-strapi-and-nuxtjs-23hj
 const Parser = require('rss-parser');
+const striptags = require('striptags');
+
+
+function stripHtml(value){
+  return striptags(value)
+}
 
 function diffInDays(date1, date2) {
     const difference = Math.floor(date1) - Math.floor(date2);
@@ -10,7 +16,7 @@ async function checkDuplicates(strapi, item) {
   const count = await strapi.db.query('api::newsitem.newsitem').count({
     where: {
       title: item.title,
-      created: new Date(item.pubDate),
+      published: new Date(item.pubDate),
       link: item.link
     },
   });
@@ -29,28 +35,28 @@ async function getNewFeedItemsFrom(feedId, feedUrl, diff, strapi) {
       ],
     }
   });
-  const rss = await parser.parseURL(feedUrl).catch( error => {
-    strapi.log.error(error);
-    return null
-  });
-  if(!rss) return [];
-  //const rss = await parser.parseURL(feedUrl);
 
-  const todaysDate = new Date().getTime() / 1000;
+  try {
+    const rss = await parser.parseURL(feedUrl)
+    const todaysDate = new Date().getTime() / 1000;
 
-  let items = rss.items.filter((item) => {
-    const blogPublishedDate = new Date(item.pubDate).getTime() / 1000;
-    return diffInDays(todaysDate, blogPublishedDate) <= diff;
-  });
+    let items = rss.items.filter((item) => {
+      const blogPublishedDate = new Date(item.pubDate).getTime() / 1000;
+      return diffInDays(todaysDate, blogPublishedDate) <= diff;
+    });
 
-  let results = []
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    if( await checkDuplicates(strapi, item) == 0  ){
-      results.push({...item, feedId: feedId});
+    let results = []
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if( await checkDuplicates(strapi, item) == 0  ){
+        results.push({...item, feedId: feedId});
+      }
     }
-  }
   return results;
+  } catch(error) {
+    strapi.log.warn(error)
+  }
+  return []
 }
 
 
@@ -70,12 +76,17 @@ async function getNewFeedItems(strapi, diff) {
 
     for (let i = 0; i < feeds.length; i++) {
         const { id, link } = feeds[i];
-        const feedItems = await getNewFeedItemsFrom(id, link, diff, strapi);
-        allNewFeedItems = [...allNewFeedItems, ...feedItems];
+        try {
+          const feedItems = await getNewFeedItemsFrom(id, link, diff, strapi);
+          allNewFeedItems = [...allNewFeedItems, ...feedItems];
+        } catch (error) {
+          strapi.log.warn(error)
+        }
     }
 
     return allNewFeedItems;
 }
+
 
 
 module.exports = ({ strapi }) => ({
@@ -86,24 +97,28 @@ module.exports = ({ strapi }) => ({
         for (let i = 0; i < feedItems.length; i++) {
 
             const item = feedItems[i];
-            strapi.log.debug(JSON.stringify(item));
-            const preview = !item.contentSnippet ? item.content: item.contentSnippet;
+            //strapi.log.debug(JSON.stringify(item));
+            let preview = !item.contentSnippet ? item.content: item.contentSnippet;
+            preview = stripHtml(preview)
 
             const newsItem = {
                 title: item.title,
                 preview: preview,
                 link: item.link,
                 creator: item.creator,
-                created: new Date(item.pubDate),
+                published: new Date(item.pubDate),
                 sponsored: false,
                 feedsource: {
                   id: item.feedId,
                 },
             };
-
-            await strapi.entityService.create('api::newsitem.newsitem', {
-              data: newsItem,
-            });
+            try {
+              await strapi.entityService.create('api::newsitem.newsitem', {
+                data: newsItem,
+              });
+            } catch (error) {
+              strapi.log.error(error)
+            }
         }
         return feedItems;
     }
