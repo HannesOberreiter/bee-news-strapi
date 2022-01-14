@@ -23,13 +23,6 @@
       "type": "string",
       "unique": true
     },
-    "lang": {
-      "type": "string",
-      "maxLength": 2,
-      "required": true,
-      "minLength": 2,
-      "default": "en"
-    },
     "language": {
       "type": "relation",
       "relation": "manyToOne",
