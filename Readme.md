@@ -2,13 +2,32 @@
 
 Strapi powered CMS for the bee-news project.
 
-## Build
+## Dev
+
+It will build based on the `Dockerfile` inside `docker-dev` folder.
 
 ```bash
 docker-compose up
 ```
 
-## Commands
+## Build
+
+Build an image for production use, will be created as `.tar` archive in the `images` folder.
+
+```bash
+docker build -f Dockerfile.prod -t hannesoberreiter/beenews:1.0 .
+docker save -o images/image.tar hannesoberreiter/beenews:1.0
+```
+
+The image can then be loaded with following command on the production side.
+
+```bash
+docker load --input image.tar
+```
+
+## Container Commands
+
+Following commands are available. Careful don't build the `nodes_modules` from your machine in dev mode, as it will use your operation system and not the linux one from the container.
 
 ```bash
 # Available commands in your project:

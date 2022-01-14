@@ -4,10 +4,10 @@ services:
   strapi:
     # image: strapi/strapi
     build: 
-      context: .
+      context: ./docker-dev
       args:
         BASE_VERSION: latest
-        STRAPI_VERSION: 4.0.3
+        STRAPI_VERSION: 4.0.4
     container_name: bee-news-strapi
     restart: unless-stopped
     env_file: .env
