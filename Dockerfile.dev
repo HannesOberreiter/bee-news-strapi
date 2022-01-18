@@ -10,8 +10,8 @@ WORKDIR /srv/app
 
 VOLUME /srv/app
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod 777 /usr/local/bin/docker-entrypoint.sh 
-ENTRYPOINT ["docker-entrypoint.sh"]
+COPY docker-entrypoint-dev.sh /usr/local/bin/
+RUN chmod 777 /usr/local/bin/docker-entrypoint-dev.sh 
+ENTRYPOINT ["docker-entrypoint-dev.sh"]
 
-CMD ["yarn", "start"]
+CMD ["strapi", "develop"]

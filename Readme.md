@@ -8,6 +8,8 @@ It will build based on the `Dockerfile` inside `docker-dev` folder.
 
 ```bash
 docker-compose up
+# If you changed the Dockerfile or entrypoint.sh you need to rebuild it before using up again:
+docker-compose build
 ```
 
 ## Build
@@ -45,3 +47,73 @@ yarn strapi
 cd /srv/app
 yarn develop
 ```
+
+## Production Server Stuff
+
+Following guide for Strapi inside container: <https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/optional-software/nginx-proxy.html#nginx-virtual-host>
+
+Proxy redirecting inside `upstream.conf`. Important the redirect IP address is not localhost it is the container IP address: `docker inspect <container-id>`.
+
+```bash
+# path: /etc/nginx/conf.d/upstream.conf
+# https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/optional-software/nginx-proxy.html#strapi-server
+
+# Strapi server
+upstream beekeeping_news_com_strapi {
+    server 172.29.0.3:1337;
+}
+```
+
+Settings up nginx:
+
+```bash
+# Create Config File inside /etc/nginx/sites-available
+touch your_url.conf
+# Create Symlink in /etc/nginx/sites-enabled
+ln -s ../sites-available/your_url.conf .
+```
+
+```bash
+# path: /etc/nginx/sites-available/strapi.conf
+# https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/optional-software/nginx-proxy.html#nginx-virtual-host
+# Certificates see
+# https://certbot.eff.org/instructions
+
+server {
+    # Listen HTTP
+    listen 80;
+    server_name api.beekeeping-news.com;
+
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    # Listen HTTPS
+    listen 443 ssl;
+    server_name api.beekeeping-news.com;
+
+    # SSL config
+    ssl_certificate /etc/letsencrypt/live/api.beekeeping-news.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.beekeeping-news.com/privkey.pem;
+
+    # Proxy Config
+    location / {
+        proxy_pass http://beekeeping_news_com_strapi;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass_request_headers on;
+    }
+}
+```
+
+## SSL Certificates
+
+Using certbot: <https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal>

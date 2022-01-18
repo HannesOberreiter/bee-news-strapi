@@ -29,10 +29,14 @@ if [ "$1" = "strapi" ]; then
     if [ -f "yarn.lock" ]; then
 
       yarn install
+      echo "Installing Admin Panel"
+      yarn build
 
     else
 
       npm install
+      echo "Installing Admin Panel"
+      npm build
 
     fi
 
