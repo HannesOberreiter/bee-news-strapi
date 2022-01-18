@@ -1,6 +1,5 @@
 FROM strapi/base:latest
 
-ARG STRAPI_VERSION
 RUN yarn global add @strapi/strapi@4.0.4
 
 RUN mkdir /srv/app && chown 1000:1000 -R /srv/app
@@ -10,8 +9,14 @@ WORKDIR /srv/app
 VOLUME /srv/app
 ADD app .
 
-COPY docker-entrypoint-prod.sh /usr/local/bin/
-RUN chmod 777 /usr/local/bin/docker-entrypoint-prod.sh 
-ENTRYPOINT ["docker-entrypoint-prod.sh"]
+# setting production ARGs for building the correct admin template
+ARG HOST=127.0.0.1
+ARG NODE_ENV=production
+ARG PUBLIC_URL=https://api.beekeeping-news.com/
+RUN yarn install; yarn build
+
+#COPY docker-entrypoint-prod.sh /usr/local/bin/
+#RUN chmod 777 /usr/local/bin/docker-entrypoint-prod.sh 
+#ENTRYPOINT ["docker-entrypoint-prod.sh"]
 
 CMD ["yarn", "start"]
