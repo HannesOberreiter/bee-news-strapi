@@ -21,7 +21,7 @@ async function checkDuplicates(strapi, item) {
     where: {
       title: item.title,
       published: new Date(item.pubDate),
-      link: item.link
+      link: cleanUtm(item.link)
     },
   });
   return count;
@@ -109,7 +109,7 @@ module.exports = ({ strapi }) => ({
                 title: item.title,
                 preview: preview,
                 link: link,
-                creator: item.creator,
+                creator: item.creator || '',
                 published: new Date(item.pubDate),
                 sponsored: false,
                 feedsource: {

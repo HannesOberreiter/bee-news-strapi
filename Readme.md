@@ -52,7 +52,7 @@ yarn develop
 
 Following guide for Strapi inside container: <https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/optional-software/nginx-proxy.html#nginx-virtual-host>
 
-Proxy redirecting inside `upstream.conf`. Important the redirect IP address is not localhost it is the container IP address: `docker inspect <container-id>`.
+Proxy redirecting inside `upstream.conf`. Important the redirect IP address is not localhost it is the container IP address: `docker inspect <container-id>` (get the gateway IP address + Port).
 
 ```bash
 # path: /etc/nginx/conf.d/upstream.conf
@@ -60,7 +60,7 @@ Proxy redirecting inside `upstream.conf`. Important the redirect IP address is n
 
 # Strapi server
 upstream beekeeping_news_com_strapi {
-    server 172.29.0.3:1337;
+    server 172.29.0.1:1337; # Gateway + Port
 }
 ```
 
