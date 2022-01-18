@@ -2,6 +2,10 @@
 const Parser = require('rss-parser');
 const striptags = require('striptags');
 
+function cleanUtm(url){
+  // https://stackoverflow.com/a/51187881/5316675
+  return url.replace(/(?<=&|\?)utm_.*?(&|$)/igm, "");
+}
 
 function stripHtml(value){
   return striptags(value)
@@ -100,11 +104,11 @@ module.exports = ({ strapi }) => ({
             //strapi.log.debug(JSON.stringify(item));
             let preview = !item.contentSnippet ? item.content: item.contentSnippet;
             preview = stripHtml(preview)
-
+            const link = cleanUtm(item.link)
             const newsItem = {
                 title: item.title,
                 preview: preview,
-                link: item.link,
+                link: link,
                 creator: item.creator,
                 published: new Date(item.pubDate),
                 sponsored: false,
