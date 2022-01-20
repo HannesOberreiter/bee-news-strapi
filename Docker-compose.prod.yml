@@ -1,0 +1,25 @@
+# https://community.hetzner.com/tutorials/install-and-configure-docker
+version: '2.2'
+services:
+  beestrapi:
+    container_name: beestrapi
+    image: hannesoberreiter/beenews:1.5
+    restart: always
+    env_file: .env
+    environment:
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_CHARSET: ${DATABASE_CHARSET}
+      DATABASE_SSL: ${DATABASE_SSL}
+      HOST: ${HOST}
+      PORT: ${PORT}
+    ports:
+      - "1337:${PORT}"
+
+networks:
+  default:
+    external: true
+    name: database_btree-db-network
