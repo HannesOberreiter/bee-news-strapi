@@ -47,11 +47,11 @@ async function getNewFeedItemsFrom(feedId, feedUrl, diff, strapi) {
     const todaysDate = new Date().getTime() / 1000;
 
     let items = rss.items.filter((item) => {
-      strapi.log.debug(item.pubDate)
+      //strapi.log.debug(item.pubDate)
       const blogPublishedDate = new Date(item.pubDate).getTime() / 1000;
       return diffInDays(todaysDate, blogPublishedDate) <= diff;
     });
-    strapi.log.debug(JSON.stringify(items))
+    //strapi.log.debug(JSON.stringify(items))
 
     let results = []
     for (let i = 0; i < items.length; i++) {
