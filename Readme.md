@@ -17,8 +17,8 @@ docker-compose build
 Build an image for production use, will be created as `.tar` archive in the `images` folder.
 
 ```bash
-docker build -f Dockerfile.prod -t hannesoberreiter/beenews:1.0 .
-docker save -o images/image.tar hannesoberreiter/beenews:1.0
+docker build -f Dockerfile.prod -t hannesoberreiter/beenews:1.7 .
+docker save -o images/image.tar hannesoberreiter/beenews:1.7
 ```
 
 The image can then be loaded with following command on the production side.
