@@ -60,7 +60,7 @@ Proxy redirecting inside `upstream.conf`. Important the redirect IP address is n
 
 # Strapi server
 upstream beekeeping_news_com_strapi {
-    server 172.29.0.1:1337; # Gateway + Port
+    server 172.18.0.1:1337; # Gateway + Port
 }
 ```
 
