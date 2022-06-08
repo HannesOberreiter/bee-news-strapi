@@ -15,6 +15,7 @@ docker-compose build
 ## Upgrade notes
 
 - set `docker-compose.yml` the `STRAPI_VERSION` to latest
+- set `Dockerfile.prod` the line with `RUN yarn global add @strapi/strapi@XXX` to same as above
 - update `package.json` inside the `app` folder to the Strapi version, same as above
 - delete node_modules and build folders inside `app` folder
 - run `docker-compose build`
@@ -26,8 +27,8 @@ docker-compose build
 Build an image for production use, will be created as `.tar` archive in the `images` folder.
 
 ```bash
-docker build -f Dockerfile.prod -t hannesoberreiter/beenews:1.7 .
-docker save -o images/image.tar hannesoberreiter/beenews:1.7
+docker build -f Dockerfile.prod -t hannesoberreiter/beenews:latest .
+docker save -o images/image.tar hannesoberreiter/beenews:latest
 ```
 
 The image can then be loaded with following command on the production side.
