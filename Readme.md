@@ -12,13 +12,23 @@ docker-compose up
 docker-compose build
 ```
 
+## Upgrade notes
+
+- set `docker-compose.yml` the `STRAPI_VERSION` to latest
+- set `Dockerfile.prod` the line with `RUN yarn global add @strapi/strapi@XXX` to same as above
+- update `package.json` inside the `app` folder to the Strapi version, same as above
+- delete node_modules and build folders inside `app` folder
+- run `docker-compose build`
+- run `docker-compose up` the `docker-entrypoint-dev.sh` should see that `nodes_modules` is deleted and rebuild everything
+- for production an image is created see section **Build** below
+
 ## Build
 
 Build an image for production use, will be created as `.tar` archive in the `images` folder.
 
 ```bash
-docker build -f Dockerfile.prod -t hannesoberreiter/beenews:1.0 .
-docker save -o images/image.tar hannesoberreiter/beenews:1.0
+docker build -f Dockerfile.prod -t hannesoberreiter/beenews:latest .
+docker save -o images/image.tar hannesoberreiter/beenews:latest
 ```
 
 The image can then be loaded with following command on the production side.
@@ -60,7 +70,7 @@ Proxy redirecting inside `upstream.conf`. Important the redirect IP address is n
 
 # Strapi server
 upstream beekeeping_news_com_strapi {
-    server 172.29.0.1:1337; # Gateway + Port
+    server 172.18.0.1:1337; # Gateway + Port
 }
 ```
 

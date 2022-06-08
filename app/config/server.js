@@ -5,7 +5,7 @@ module.exports = ({ env }) => ({
   port: env.int('PORT', 1337),
   url: env('PUBLIC_URL', ''),
   cron: {
-    enabled: env.bool('CRON_ENABLED', false),
+    enabled: env.bool('CRON_ENABLED', true),
     tasks: cronTasks,
   },
 });

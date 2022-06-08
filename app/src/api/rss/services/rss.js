@@ -80,7 +80,7 @@ async function getNewFeedItems(strapi, diff) {
 
     const feeds = await getFeedUrls(strapi);
 
-    strapi.log.debug(JSON.stringify(feeds));
+    //strapi.log.debug(JSON.stringify(feeds));
 
     for (let i = 0; i < feeds.length; i++) {
         const { id, link } = feeds[i];
