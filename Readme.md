@@ -12,6 +12,15 @@ docker-compose up
 docker-compose build
 ```
 
+## Upgrade notes
+
+- set `docker-compose.yml` the `STRAPI_VERSION` to latest
+- update `package.json` inside the `app` folder to the Strapi version, same as above
+- delete node_modules and build folders inside `app` folder
+- run `docker-compose build`
+- run `docker-compose up` the `docker-entrypoint-dev.sh` should see that `nodes_modules` is deleted and rebuild everything
+- for production an image is created see section **Build** below
+
 ## Build
 
 Build an image for production use, will be created as `.tar` archive in the `images` folder.
