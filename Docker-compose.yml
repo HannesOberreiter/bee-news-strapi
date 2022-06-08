@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile.dev
       args:
         BASE_VERSION: latest
-        STRAPI_VERSION: 4.0.5
+        STRAPI_VERSION: 4.1.12
     container_name: bee-news-strapi
     restart: unless-stopped
     env_file: .env
@@ -29,4 +29,4 @@ services:
 networks:
   default:
     external: true
-    name: btree-docker-mysql_btree-db-network
+    name: btree-docker-mysql_btree-maria-network

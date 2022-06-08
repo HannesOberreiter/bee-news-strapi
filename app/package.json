@@ -1,32 +1,32 @@
 {
-  "name": "bee-news",
-  "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
-  "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
+  "author": {
+    "name": "A Strapi developer"
   },
-  "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-i18n": "4.0.5",
-    "@strapi/plugin-users-permissions": "4.0.5",
-    "@strapi/strapi": "4.0.5",
+    "@strapi/plugin-i18n": "4.1.12",
+    "@strapi/plugin-users-permissions": "4.1.12",
+    "@strapi/strapi": "4.1.12",
     "mysql": "2.18.1",
     "rss-parser": "^3.12.0",
     "striptags": "^3.2.0"
   },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "0e85ee54-06fd-467e-81f2-715a0f2c89eb"
-  },
+  "description": "A Strapi application",
+  "devDependencies": {},
   "engines": {
     "node": ">=12.x.x <=16.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "name": "bee-news",
+  "private": true,
+  "scripts": {
+    "build": "strapi build",
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "strapi": "strapi"
+  },
+  "strapi": {
+    "uuid": "0e85ee54-06fd-467e-81f2-715a0f2c89eb"
+  },
+  "version": "0.1.0"
 }
