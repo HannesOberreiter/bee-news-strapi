@@ -3,7 +3,7 @@ version: '2.2'
 services:
   beestrapi:
     container_name: beestrapi
-    image: hannesoberreiter/beenews:latest
+    image: hannesoberreiter/bee-news-strapi:latest
     restart: always
     env_file: .env
     environment:
