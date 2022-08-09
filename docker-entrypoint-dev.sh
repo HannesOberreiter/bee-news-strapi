@@ -26,19 +26,9 @@ if [ "$1" = "strapi" ]; then
 
     echo "Node modules not installed. Installing..."
 
-    if [ -f "yarn.lock" ]; then
-
-      yarn install
-      echo "Installing Admin Panel"
-      yarn build
-
-    else
-
-      npm install
-      echo "Installing Admin Panel"
-      npm build
-
-    fi
+    yarn install
+    echo "Installing Admin Panel"
+    yarn build
 
   fi
 

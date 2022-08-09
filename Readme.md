@@ -14,8 +14,6 @@ docker-compose build
 
 ## Upgrade notes
 
-- set `docker-compose.yml` the `STRAPI_VERSION` to latest
-- set `Dockerfile.prod` the line with `RUN yarn global add @strapi/strapi@XXX` to same as above
 - update `package.json` inside the `app` folder to the Strapi version, same as above
 - delete node_modules and build folders inside `app` folder
 - run `docker-compose build`

@@ -6,9 +6,6 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.dev
-      args:
-        BASE_VERSION: latest
-        STRAPI_VERSION: 4.1.12
     container_name: bee-news-strapi
     restart: unless-stopped
     env_file: .env
