@@ -14,15 +14,34 @@ docker-compose build
 
 ## Upgrade notes
 
-- set `docker-compose.yml` the `STRAPI_VERSION` to latest
-- set `Dockerfile.prod` the line with `RUN yarn global add @strapi/strapi@XXX` to same as above
 - update `package.json` inside the `app` folder to the Strapi version, same as above
 - delete node_modules and build folders inside `app` folder
 - run `docker-compose build`
 - run `docker-compose up` the `docker-entrypoint-dev.sh` should see that `nodes_modules` is deleted and rebuild everything
 - for production an image is created see section **Build** below
 
-## Build
+## Auto Build
+
+Github action is used to auto build a docker image and push it to DockerHub.
+
+### Running container
+
+Hint: To be able to pull from a DockerHub private repo create a api key with read-only access and login once to docker on your server eg. `docker login -u hannesoberreiter` with the api token as password. The token will be saved in your config and you can call docker-compose on the private repo.
+
+```bash
+# Pull latest and run 
+docker-compose pull  && docker-compose up -d
+# Run container (server) (define file if not the only one in folder)
+docker-compose -f docker-compose.server.yml up -d
+# Stop container  (server)
+docker-compose -f docker-compose-server.yml down
+# Access Container Bash for npm run commands
+docker exec -it btree-server /bin/sh
+# Clean Container
+docker-compose -f docker-compose-*.yml rm
+```
+
+## Manual Build
 
 Build an image for production use, will be created as `.tar` archive in the `images` folder.
 

@@ -1,8 +1,7 @@
-ARG BASE_VERSION
-FROM strapi/base:${BASE_VERSION}
-
-ARG STRAPI_VERSION
-RUN npm global add @strapi/strapi@${STRAPI_VERSION}
+FROM node:16-alpine
+RUN apk add --no-cache libc6-compat yarn
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
 
 RUN mkdir /srv/app && chown 1000:1000 -R /srv/app
 
