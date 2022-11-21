@@ -15,7 +15,7 @@ docker-compose build
 ## Upgrade notes
 
 - update `package.json` inside the `app` folder to the Strapi version, same as above
-- delete node_modules and build folders inside `app` folder
+- delete `node_modules` and `build` folders inside `app` folder
 - run `docker-compose build`
 - run `docker-compose up` the `docker-entrypoint-dev.sh` should see that `nodes_modules` is deleted and rebuild everything
 - for production an image is created see section **Build** below
