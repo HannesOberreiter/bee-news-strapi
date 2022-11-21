@@ -14,7 +14,7 @@ ADD app .
 ARG HOST=127.0.0.1
 ARG NODE_ENV=production
 ARG PUBLIC_URL=https://api.beekeeping-news.com/
-RUN yarn install; yarn build
+RUN yarn install --prod --silent; yarn build
 
 #COPY docker-entrypoint-prod.sh /usr/local/bin/
 #RUN chmod 777 /usr/local/bin/docker-entrypoint-prod.sh 

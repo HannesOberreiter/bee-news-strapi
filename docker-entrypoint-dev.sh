@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ea
 
-if [ "$1" = "strapi" ]; then
+if [ "$*" = "strapi" ]; then
 
   if [ ! -f "package.json" ]; then
 
@@ -10,9 +10,9 @@ if [ "$1" = "strapi" ]; then
     EXTRA_ARGS=${EXTRA_ARGS}
 
     echo "Using strapi $(strapi version)"
-    echo "No project found at /srv/app. Creating a new strapi project"
+    echo "No project found at /srv/app. Creating a new strapi project ..."
 
-    DOCKER=true strapi new . \
+    DOCKER=true strapi new . --no-run \
       --dbclient=$DATABASE_CLIENT \
       --dbhost=$DATABASE_HOST \
       --dbport=$DATABASE_PORT \
@@ -24,16 +24,29 @@ if [ "$1" = "strapi" ]; then
 
   elif [ ! -d "node_modules" ] || [ ! "$(ls -qAL node_modules 2>/dev/null)" ]; then
 
-    echo "Node modules not installed. Installing..."
+    if [ -f "yarn.lock" ]; then
 
-    yarn install
-    echo "Installing Admin Panel"
-    yarn build
+      echo "Node modules not installed. Installing using yarn ..."
+      yarn install --prod --silent
+
+    else
+
+      echo "Node modules not installed. Installing using npm ..."
+      npm install --only=prod --silent
+
+    fi
 
   fi
 
+  if [ "$NODE_ENV" = "production" ]; then
+    STRAPI_MODE="start"
+  elif [ "$NODE_ENV" = "development" ]; then
+    STRAPI_MODE="develop"
+  fi
+
+  echo "Starting your app (with ${STRAPI_MODE:-develop})..."
+  exec yarn "${STRAPI_MODE:-develop}"
+
+else
+  exec "$@"
 fi
-
-echo "Starting your app..."
-
-exec "$@"

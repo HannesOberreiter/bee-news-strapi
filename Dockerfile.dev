@@ -13,4 +13,4 @@ COPY docker-entrypoint-dev.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/docker-entrypoint-dev.sh 
 ENTRYPOINT ["docker-entrypoint-dev.sh"]
 
-CMD ["strapi", "develop"]
+CMD ["strapi"]

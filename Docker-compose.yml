@@ -23,7 +23,8 @@ services:
       - ./app:/srv/app
     ports:
       - "1337:${PORT}"
+
 networks:
   default:
     external: true
-    name: btree-docker-mysql_btree-maria-network
+    name: btree_database_btree-maria-network
