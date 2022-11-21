@@ -1,16 +1,16 @@
 {
   "author": {
-    "name": "A Strapi developer"
+    "name": "Hannes Oberreiter"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.3.2",
-    "@strapi/plugin-users-permissions": "4.3.2",
-    "@strapi/strapi": "4.3.2",
+    "@strapi/plugin-i18n": "4.5.1",
+    "@strapi/plugin-users-permissions": "4.5.1",
+    "@strapi/strapi": "4.5.1",
     "mysql": "2.18.1",
     "rss-parser": "^3.12.0",
     "striptags": "^3.2.0"
   },
-  "description": "A Strapi application",
+  "description": "Beekeeping News Backend",
   "devDependencies": {},
   "engines": {
     "node": ">=12.x.x <=16.x.x",
@@ -28,5 +28,5 @@
   "strapi": {
     "uuid": "0e85ee54-06fd-467e-81f2-715a0f2c89eb"
   },
-  "version": "0.1.0"
+  "version": "4.5.1"
 }
