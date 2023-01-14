@@ -1,5 +1,5 @@
 FROM node:16-alpine
-RUN apk add --no-cache libc6-compat yarn
+RUN apk add --no-cache --update npm
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
@@ -14,10 +14,10 @@ ADD app .
 ARG HOST=127.0.0.1
 ARG NODE_ENV=production
 ARG PUBLIC_URL=https://api.beekeeping-news.com/
-RUN yarn install --prod --silent; yarn build
+RUN npm install --only=prod --silent; npm run build
 
 #COPY docker-entrypoint-prod.sh /usr/local/bin/
 #RUN chmod 777 /usr/local/bin/docker-entrypoint-prod.sh 
 #ENTRYPOINT ["docker-entrypoint-prod.sh"]
 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]

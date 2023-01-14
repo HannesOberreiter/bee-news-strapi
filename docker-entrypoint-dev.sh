@@ -45,7 +45,7 @@ if [ "$*" = "strapi" ]; then
   fi
 
   echo "Starting your app (with ${STRAPI_MODE:-develop})..."
-  exec yarn "${STRAPI_MODE:-develop}"
+  exec npm run "${STRAPI_MODE:-develop}"
 
 else
   exec "$@"
