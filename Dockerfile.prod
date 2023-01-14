@@ -1,5 +1,5 @@
-FROM node:18-alpine
-RUN apk add --no-cache --update npm
+FROM node:16-alpine
+RUN apk add --no-cache --update npm libc6-compat
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
@@ -14,7 +14,7 @@ ADD app .
 ARG HOST=127.0.0.1
 ARG NODE_ENV=production
 ARG PUBLIC_URL=https://api.beekeeping-news.com/
-RUN npm install
+RUN npm install --unsafe-perm
 RUN npm run build
 
 #COPY docker-entrypoint-prod.sh /usr/local/bin/
