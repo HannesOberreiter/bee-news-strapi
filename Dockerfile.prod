@@ -14,7 +14,8 @@ ADD app .
 ARG HOST=127.0.0.1
 ARG NODE_ENV=production
 ARG PUBLIC_URL=https://api.beekeeping-news.com/
-RUN npm install --only=prod --silent; npm run build
+RUN npm install --only=prod --silent
+RUN npm run build
 
 #COPY docker-entrypoint-prod.sh /usr/local/bin/
 #RUN chmod 777 /usr/local/bin/docker-entrypoint-prod.sh 
