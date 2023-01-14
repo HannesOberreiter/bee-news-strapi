@@ -24,15 +24,15 @@ if [ "$*" = "strapi" ]; then
 
   elif [ ! -d "node_modules" ] || [ ! "$(ls -qAL node_modules 2>/dev/null)" ]; then
 
-    if [ -f "yarn.lock" ]; then
-
-      echo "Node modules not installed. Installing using yarn ..."
-      yarn install --prod --silent
-
-    else
+    if [ -f "package-lock.json" ]; then
 
       echo "Node modules not installed. Installing using npm ..."
       npm install --only=prod --silent
+
+    else
+
+      echo "Node modules not installed. Installing using yarn ..."
+      yarn install --prod --silent
 
     fi
 
@@ -45,7 +45,7 @@ if [ "$*" = "strapi" ]; then
   fi
 
   echo "Starting your app (with ${STRAPI_MODE:-develop})..."
-  exec npm run "${STRAPI_MODE:-develop}"
+  exec yarn "${STRAPI_MODE:-develop}"
 
 else
   exec "$@"

@@ -1,6 +1,6 @@
 FROM node:16-alpine
-RUN apk add --no-cache --update npm libc6-compat
-ARG NODE_ENV=production
+RUN apk add --no-cache libc6-compat yarn
+ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 
 RUN mkdir /srv/app && chown 1000:1000 -R /srv/app
