@@ -3,9 +3,9 @@
     "name": "Hannes Oberreiter"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.9.2",
-    "@strapi/plugin-users-permissions": "4.9.2",
-    "@strapi/strapi": "4.9.2",
+    "@strapi/plugin-i18n": "4.10.6",
+    "@strapi/plugin-users-permissions": "4.10.6",
+    "@strapi/strapi": "4.10.6",
     "mysql": "2.18.1",
     "rss-parser": "^3.13.0",
     "striptags": "^3.2.0"
@@ -28,5 +28,5 @@
   "strapi": {
     "uuid": "0e85ee54-06fd-467e-81f2-715a0f2c89eb"
   },
-  "version": "4.9.2"
+  "version": "4.10.6"
 }
